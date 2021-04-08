@@ -15,6 +15,7 @@ public class MyHashSet<T> {
     /**
      * Konstruktor fuer HashSet
      */
+    @SuppressWarnings("unchecked") // wegen ArrayList Konstruktor
     public MyHashSet() {
         this.arr = new ArrayList[10];
         for (int i = 0; i < this.arr.length; i++) // for-each klappt nicht...
@@ -89,6 +90,7 @@ public class MyHashSet<T> {
     /**
      * Hilfsmethode die das HashSet ums doppelte erweitert.
      */
+    @SuppressWarnings("unchecked") // wegen ArrayList Konstruktor
     private void doubleSize() {
         ArrayList<T>[] copy = this.arr;
         this.arr = new ArrayList[this.arr.length * 2];
