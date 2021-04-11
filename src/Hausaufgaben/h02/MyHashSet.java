@@ -18,8 +18,7 @@ public class MyHashSet<T> {
     @SuppressWarnings("unchecked") // wegen ArrayList Konstruktor
     public MyHashSet() {
         this.arr = new ArrayList[10];
-        for (int i = 0; i < this.arr.length; i++) // for-each klappt nicht...
-            this.arr[i] = new ArrayList<T>();
+        this.fillArray();
     }
 
     /**
@@ -39,7 +38,7 @@ public class MyHashSet<T> {
     /**
      * Loescht das uebergebende Element.
      *
-     * @param elem Element was gelescht werden soll
+     * @param elem Element was geloescht werden soll
      * @return Wahrheitswert ob das Element ueberhaupt in dem HashSet ist
      */
     public boolean delete(T elem) {
@@ -77,7 +76,7 @@ public class MyHashSet<T> {
     }
 
     /**
-     * Hilfsmethode die ueberprueft ob das HashSet erweitert werden muss.
+     * Hilfsmethode, die ueberprueft ob das HashSet erweitert werden muss.
      */
     private void proofSize() {
         int elem = 0;
@@ -88,17 +87,24 @@ public class MyHashSet<T> {
     }
 
     /**
-     * Hilfsmethode die das HashSet ums doppelte erweitert.
+     * Hilfsmethode, die die Laenge des HashSets verdoppelt.
      */
     @SuppressWarnings("unchecked") // wegen ArrayList Konstruktor
     private void doubleSize() {
         ArrayList<T>[] copy = this.arr;
         this.arr = new ArrayList[this.arr.length * 2];
-        for (int i = 0; i < this.arr.length; i++) // for-each klappt nicht...
-            this.arr[i] = new ArrayList<T>();
+        this.fillArray();
         for (ArrayList<T> list : copy)
             for (T elem : list)
                 this.add(elem);
+    }
+
+    /**
+     * Hilfsmethode, das leere Array inizialisiert.
+     */
+    private void fillArray() {
+        for (int i = 0; i < this.arr.length; i++)
+            this.arr[i] = new ArrayList<T>();
     }
 
     // Testen
