@@ -75,6 +75,24 @@ public class u01 {
     //      Aufruf 4: l=3; r=3
     //      -> return -1;
 
+    public static void main(String[] args) {
+        // Aufgabe 1
+        int[] arr ={1,3,-5,7,8,20,-40,6};
+        findPairWithMinSumBruteForce(arr);
+        findPairWithMinSum(arr);
+
+        // Aufgabe 2
+        BinarySearch ob = new BinarySearch();
+        int[] arr2 = { 1, 2, 4, 6, 7, 11, 14, 18, 21, 25, 28, 30, 32, 35, 37};
+        int n = arr2.length;
+        int x = 25;
+        int result = ob.binarySearch(arr2, 0, n - 1, x);
+        if (result == -1)
+            System.out.println(" Element not present");
+        else
+            System.out.println(" Element found at index " + result);
+    }
+
     static class BinarySearch {
         // Returns index of x if it is present in arr[l..
         // r], else return -1
@@ -85,7 +103,7 @@ public class u01 {
                 // b)
                 int zaehler = x - arr[l];
                 int nenner = arr[r] - arr[l];
-                int mid = (int) (zaehler / (nenner/(double)(r-l))) + l;
+                int mid = (int) (zaehler / (nenner / (double) (r - l))) + l;
 
                 // If the element is present at the
                 // middle itself
@@ -107,23 +125,4 @@ public class u01 {
             return -1;
         }
     }
-
-    public static void main(String[] args) {
-        // Aufgabe 1
-        int[] arr ={1,3,-5,7,8,20,-40,6};
-        findPairWithMinSumBruteForce(arr);
-        findPairWithMinSum(arr);
-
-        // Aufgabe 2
-        BinarySearch ob = new BinarySearch();
-        int[] arr2 = { 1, 2, 4, 6, 7, 11, 14, 18, 21, 25, 28, 30, 32, 35, 37};
-        int n = arr2.length;
-        int x = 25;
-        int result = ob.binarySearch(arr2, 0, n - 1, x);
-        if (result == -1)
-            System.out.println(" Element not present");
-        else
-            System.out.println(" Element found at index " + result);
-    }
-
 }
