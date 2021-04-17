@@ -1,11 +1,17 @@
 package Hausaufgaben.h03;
 
+/**
+ * Diese Klasse ist eine einfache doppelt verkettete Liste, welche das Interface IList implementiert.
+ */
 public class LinkedList implements IList {
 
     private Node first;
     private Node last;
     private int size;
 
+    /**
+     * Konstruktur
+     */
     public LinkedList() {
         this.first = null;
         this.last = null;
