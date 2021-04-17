@@ -185,6 +185,7 @@ public class LinkedList implements IList {
         for (int i = 0; i < 20; i++) {
             list.insertAt(i, i + 1);
         }
+        System.out.println("list.insertAt(i, i + 1) fuer: 0 =< i < 20");
         System.out.println(list);
         System.out.println("list.getAt(4) = " + list.getAt(4));
         System.out.println("list.removeAt(4)");
