@@ -1,7 +1,7 @@
 package Hausaufgaben.h03;
 
 /**
- * Diese Klasse ist eine einfache doppelt verkettete Liste, welche das Interface IList implementiert.
+ * Diese Klasse ist eine einfach verkettete Liste, welche das Interface IList implementiert.
  */
 public class LinkedList implements IList {
 
@@ -123,7 +123,7 @@ public class LinkedList implements IList {
     }
 
     /**
-     * Hilfsmethode die zu einer bestimmten Position geht und gibt diese Node zurueck
+     * Hilfsmethode, die zu einer bestimmten Position geht und diese Node zurueck gibt
      *
      * @param n Position
      * @return Node

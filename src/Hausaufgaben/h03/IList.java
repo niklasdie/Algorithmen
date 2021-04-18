@@ -1,7 +1,7 @@
 package Hausaufgaben.h03;
 
 /**
- * Interface fuer eine einfache doppelt verkettete Liste.
+ * Interface fuer eine einfach verkettete Liste.
  */
 public interface IList {
 
