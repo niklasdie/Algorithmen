@@ -36,10 +36,8 @@ public class LinkedList implements IList {
                 this.last.next = node;
                 this.last = node;
             } else {
-                tmp.next.prev = node;
                 node.next = tmp.next;
                 tmp.next = node;
-                node.prev = tmp;
             }
         }
         this.size++;
@@ -55,14 +53,12 @@ public class LinkedList implements IList {
         if (this.first == null)
             throw new ArrayIndexOutOfBoundsException("LinkedList ist leer");
         if (n == 0) {
-            this.first.next.prev = null;
             this.first = null;
         } else {
             Node tmp = this.goTo(n - 1);
             if (tmp == this.last)
                 throw new ArrayIndexOutOfBoundsException("Fehlerhafter Index");
             if (tmp.next != this.last) {
-                tmp.next.next.prev = tmp;
                 tmp.next = tmp.next.next;
             } else {
                 tmp.next = null;
@@ -169,13 +165,11 @@ public class LinkedList implements IList {
     private static class Node {
 
         private Node next;
-        private Node prev;
         private final int data;
 
         private Node(int data) {
             this.data = data;
             this.next = null;
-            this.prev = null;
         }
     }
 
