@@ -53,7 +53,7 @@ public class LinkedList implements IList {
         if (this.first == null)
             throw new ArrayIndexOutOfBoundsException("LinkedList ist leer");
         if (n == 0) {
-            this.first = null;
+            this.first = this.first.next;
         } else {
             Node tmp = this.goTo(n - 1);
             if (tmp == this.last)
@@ -64,7 +64,6 @@ public class LinkedList implements IList {
                 tmp.next = null;
                 this.last = tmp;
             }
-
             this.size--;
         }
     }
