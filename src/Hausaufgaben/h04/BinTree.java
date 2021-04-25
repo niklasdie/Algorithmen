@@ -1,13 +1,25 @@
 package Hausaufgaben.h04;
 
+/**
+ * Diese Klasse bildet einen binaren Suchbaum der ints speichert.
+ */
 public class BinTree {
 
     private TreeNode root;
 
+    /**
+     * Konstruktor
+     */
     public BinTree() {
         this.root = null;
     }
 
+    /**
+     * sucht einen bestimmten Wert im Baum, gibt null zurueck, wenn der Wert nicht im Baum existiert
+     *
+     * @param x bestimmter Wert
+     * @return bestimmten Wert in Form von einer TreeNode oder null
+     */
     private TreeNode getNode(int x) {
         TreeNode tmp = this.root;
         tmp = this.getNodeRekusiv(x, tmp);
@@ -18,6 +30,13 @@ public class BinTree {
         }
     }
 
+    /**
+     * Hilfsmethode, die den bestimmten Wert im Baum sucht
+     *
+     * @param x   bestimmter Wert
+     * @param tmp TreeNode von dem die Suche gestartet wird
+     * @return bestimmter Wert in Form einer TreeNode
+     */
     private TreeNode getNodeRekusiv(int x, TreeNode tmp) {
         if (this.root == null)
             throw new ArithmeticException("BinTree ist leer!");
@@ -44,6 +63,12 @@ public class BinTree {
         return this.getNodeRekusiv(x, tmp);
     }
 
+    /**
+     * gibt den Elternknoten eines bestimmten Wertes zurueck, gibt null zurueck falls x die Wurzel ist
+     *
+     * @param x bestimmter Wert
+     * @return Elternknoten in Form von einer TreeNode oder null
+     */
     private TreeNode getParentNode(int x) {
         TreeNode tmp = this.root;
         tmp = this.getNodeRekusiv(x, tmp);
@@ -57,6 +82,11 @@ public class BinTree {
         return null;
     }
 
+    /**
+     * fuegt einen Wert im Baum ein
+     *
+     * @param x Wert
+     */
     public void insert(int x) {
         if (this.root == null) {
             this.root = new TreeNode(x);
@@ -75,10 +105,18 @@ public class BinTree {
         }
     }
 
+    /**
+     * loescht den gesamten Baum
+     */
     public void clear() {
         this.root = null;
     }
 
+    /**
+     * loescht einen bestimmten Wert aus dem Baum
+     *
+     * @param x bestimmter Wert
+     */
     public void remove(int x) {
         TreeNode tmp = this.root;
         tmp = this.getNodeRekusiv(x, tmp);
@@ -94,25 +132,41 @@ public class BinTree {
         tmp.right = node.right;
     }
 
+    /**
+     * Hilfsmethode, die von dem uebergebenen Knoten so weit nach links geht wie möglich
+     *
+     * @param tmp Startknoten
+     * @return gibt das ganz linke Blatt zurueck
+     */
     private TreeNode goLeft(TreeNode tmp) {
         while (tmp.left != null)
             tmp = tmp.left;
         return tmp;
     }
 
+    /**
+     * Knotenklasse
+     */
     static class TreeNode {
 
         private final int data;
+
         private TreeNode parent;
         private TreeNode left;
         private TreeNode right;
 
+        /**
+         * Konstruktor
+         *
+         * @param data int-Wert
+         */
         private TreeNode(int data) {
             this.data = data;
             this.parent = null;
             this.left = null;
             this.right = null;
         }
+
     }
 
     // Test
