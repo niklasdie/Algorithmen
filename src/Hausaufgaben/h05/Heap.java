@@ -40,8 +40,8 @@ public class Heap {
 
     /**
      * Hilfsmethode, die das eingefuegte Element nach oben sortiert
-     * @param i
-     * @param pos
+     * @param i Element
+     * @param pos Position
      */
     private void upheap(int i, int pos) {
         if (pos != 1) {
