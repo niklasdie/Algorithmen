@@ -25,13 +25,11 @@ public class MyGraph extends Graph {
 
     public ArrayList<Integer> getEdgeList() {
         ArrayList<Integer> res = this.firstTwoElements();
-        for (int i = 0; i < this.getVertexCount(); i++) {
+        for (int i = 0; i <= this.getVertexCount(); i++) {
             ArrayList<Integer> nachfolger = this.getAdjacent(i);
-            if (nachfolger != null && nachfolger.size() > i) {
-                for (int j = 0; j < this.getEdgeCount(); j++) {
-                    res.add(i);
-                    res.add(nachfolger.get(i));
-                }
+            for (int j = 0; j < nachfolger.size(); j++) {
+                res.add(i);
+                res.add(nachfolger.get(j));
             }
         }
         return res;
@@ -39,14 +37,13 @@ public class MyGraph extends Graph {
 
     public ArrayList<Integer> getVertexList() {
         ArrayList<Integer> res = this.firstTwoElements();
-        for (int i = 0; i < this.getVertexCount(); i++) {
+        for (int i = 0; i <= this.getVertexCount(); i++) {
             ArrayList<Integer> nachfolger = this.getAdjacent(i);
             int anzahl = this.ausgangsgrad(i);
-            res.add(anzahl);
-            if (nachfolger != null && nachfolger.size() > i) {
-                for (int j = 0; j < anzahl; j++) {
-                    res.add(nachfolger.get(j));
-                }
+            if (anzahl != 0)
+                res.add(anzahl);
+            for (int j = 0; j < anzahl; j++) {
+                res.add(nachfolger.get(j));
             }
         }
         return res;
@@ -55,16 +52,13 @@ public class MyGraph extends Graph {
     public int[][] getAdjacencyMatrix() {
         int anzahlKnoten = this.getVertexCount();
         int[][] res = new int[anzahlKnoten][anzahlKnoten];
-        for (int i = 0; i < anzahlKnoten; i++)
+        for (int i = 0; i < anzahlKnoten; i++) // Array füllen
             for (int j = 0; j < anzahlKnoten; j++)
                 res[i][j] = 0;
         for (int i = 0; i < anzahlKnoten; i++) {
-            ArrayList<Integer> nachfolger = this.getAdjacent(i);
-            int anzahl = this.ausgangsgrad(i);
-            if (nachfolger != null) {
-                for (int j = 0; j < anzahl; j++) {
-                    res[i][nachfolger.get(j)] = 1;
-                }
+            ArrayList<Integer> nachfolger = this.getAdjacent(i+1);
+            for (int j = 0; j < nachfolger.size(); j++) {
+                res[i][nachfolger.get(j) - 1] = 1;
             }
         }
         return res;
@@ -72,7 +66,7 @@ public class MyGraph extends Graph {
 
     public ArrayList<Integer> bfs(int start) {
         boolean[] check = new boolean[this.getVertexCount()];
-        for (boolean x : check)
+        for (boolean x : check) // Array füllen
             x = false;
         return this.bfsRekusiv(start, check);
     }
@@ -92,7 +86,7 @@ public class MyGraph extends Graph {
 
     public ArrayList<Integer> dfs(int start) {
         boolean[] check = new boolean[this.getVertexCount()];
-        for (boolean x : check)
+        for (boolean x : check) // Array füllen
             x = false;
         return this.dfsRekusiv(start, check);
     }
@@ -113,7 +107,7 @@ public class MyGraph extends Graph {
     public ArrayList<Integer> getUnreachableVertices(int start) {
         int anzahl = this.getVertexCount();
         boolean[] check = new boolean[anzahl];
-        for (boolean x : check)
+        for (boolean x : check) // Array füllen
             x = false;
         this.getUnreachableVerticesRekusiv(start, check);
         ArrayList<Integer> res = new ArrayList<>();
