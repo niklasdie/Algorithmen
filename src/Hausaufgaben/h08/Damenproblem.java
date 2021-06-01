@@ -1,3 +1,5 @@
+package Hausaufgaben.h08;
+
 /**
  * @author Gruppe 24
  */
@@ -16,6 +18,8 @@ public class Damenproblem {
      * @param brettgroesse gibt die Hoehe und Breite des Brettes vor
      */
     public static void damenProblem(int brettgroesse) {
+        if (brettgroesse < 1)
+            throw new ArithmeticException("Brettgroesse kann nicht negativ sein");
         rekursivDamenProblem(new boolean[brettgroesse][brettgroesse], 0, 0, brettgroesse);
         System.out.println(validResults + " valide Lösungen");
     }
@@ -42,9 +46,6 @@ public class Damenproblem {
 
         if (col < brettgroesse - 1)
             rekursivDamenProblem(brett, row, col + 1, brettgroesse);
-        else {
-            return;
-        }
     }
 
     /**
@@ -65,24 +66,20 @@ public class Damenproblem {
                     sb.append("|");
                     first = false;
                 }
-                if (brett[row][col]) {
+                if (brett[row][col])
                     sb.append("X|");
-                } else {
+                else
                     sb.append(" |");
-                }
-
             }
             System.out.println(sb);
         }
 
         sb = new StringBuilder();
         sb.append("[");
-        for (boolean[] y : brett) {
-            for (int x = 0; x < y.length; x++) {
+        for (boolean[] y : brett)
+            for (int x = 0; x < y.length; x++)
                 if (y[x])
                     sb.append(x + 1).append(", ");
-            }
-        }
         sb.delete(sb.length() - 2, sb.length());
         sb.append("]");
 
@@ -100,10 +97,9 @@ public class Damenproblem {
      */
     private static boolean isValid(boolean[][] brett, int row, int col) {
         int brettgroesse = brett.length;
-        for (int i = 0; i < brett.length; i++) {
+        for (int i = 0; i < brett.length; i++)
             if (brett[row][i] || brett[i][col])
                 return false;
-        }
         for (int i = 0; i < brettgroesse; i++)
             for (int j = 0; j < brettgroesse; j++)
                 if (brett[i][j])
