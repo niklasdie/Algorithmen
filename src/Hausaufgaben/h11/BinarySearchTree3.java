@@ -9,7 +9,7 @@ public class BinarySearchTree3 extends BinarySearchTree2 {
         BinarySearchTree3 test = new BinarySearchTree3();
         baumBauen(test, 5,7,4,2,8,1,3);
         test.show();
-        System.out.println(test.getAverageOfSubtree(9));
+        System.out.println(test.getAverageOfSubtree(3));
     }
 
     public double getAverageOfSubtree(int val) {
