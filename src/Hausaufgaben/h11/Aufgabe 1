@@ -1,0 +1,41 @@
+Bei den Knoten müssen noch zusätzlich die aktuelle Anzahl an tiefer liegenden Knoten sowie die jeweilige Summe von
+Schlüsseln des linken und rechten Teilbaums gespeichert werden.
+
+Beim Einfügen muss nun bei der Suchen der passenden Position für das neue Element die Tiefe sowie die jeweilige Summe
+angepasst werden. Wenn zB der Knoten 5 ein innerer Knoten ist und ich mein neues Element, zB eine 2, mit der 5
+vergleiche wird die Tiefe der 5 eins hoch gezählt, weil die 2 weiter unten im Teilbaum der 5 hinzugefügt wird.
+Die Summe des linken Teilbaums wird um 2 erhöht. Dies wird für jeden knoten gemacht mit der sich die 2 vergleicht.
+
+Beim Löschen funktioniert dies genau andersrum. Wenn die zB die 5 wieder ein innerer Knoten ist, muss die Tiefe in den
+darüber liegenden Knoten um ein verkleinert werden sowie die Summe um 5 verkleinert.
+
+Einfügen:
+Methode insert
+    while(nächster knoten nicht null)
+        if(neue Zahl kleiner aktuelle zahl)
+            tiefe und linke Summe werden angepasst
+            if(nächster Knoten links gleich null)
+                füge neue Zahl hinzu
+                ende
+            geh in den nächsten linken knoten
+        else
+            tiefe und rechte Summe werden angepasst
+            if(nächster Knoten links gleich null)
+                füge neue Zahl hinzu
+                ende
+            geh in den nächsten rechten knoten
+
+Löschen:
+Methode remove
+    while(nächster knoten nicht null)
+        if(aktueller Knoten gleich zu löschender Knoten)
+            Knoten löschen und Eltern aktuallieren
+            ende
+        if(aktueller Knoten größer wie zu löschender Knoten)
+            Summe des linken Teilbaums anpassen
+        else
+            Summe des rechten Teilbaums anpassen
+        weiter mit nächsten passenden Knoten
+
+!!  Das einzige Problem beim Löschen ist, wenn der Knoten nicht im Baum existiert der gelöscht werden soll, wurde beim
+    Suchen die Tiefen und Summen schon verändert, dies muss wiederherstellen werden !!

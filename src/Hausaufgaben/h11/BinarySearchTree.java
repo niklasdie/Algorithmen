@@ -1,115 +1,142 @@
 package Hausaufgaben.h11;
 
-/** Ein binaerer Suchbaum mit ganzen Zahlen als Datensatz:
-  * Vorlage fuer die A1 von algo-pr05.
-  * Als Operationen stehen `contains' und `insert' zur Verfuegung
-  */
+/**
+ * Ein binaerer Suchbaum mit ganzen Zahlen als Datensatz:
+ * Vorlage fuer die A1 von algo-pr05.
+ * Als Operationen stehen `contains' und `insert' zur Verfuegung
+ */
 public class BinarySearchTree {
 
-	/** Die Knotenklasse als statische innere Klasse. */
-	public static class TreeNode {
-		private int value;
-		private TreeNode left;
-		private TreeNode right;
+    /**
+     * Baumwurzel
+     */
+    protected TreeNode root;
 
-		public TreeNode(int value) {
-			this.value = value;
-		}
+    public static void main(String[] args) {
+        BinarySearchTree tree = new BinarySearchTree();
+        for (int i = 0; i < 20; i++) {
+            int x = (int) (Math.random() * 50);
+            System.out.println(x);
+            tree.insert(x);
+        }
+        for (int i = 0; i < 50; i++) {
+            System.out.println(i + ": " + tree.contains(i));
+        }
+    }
 
-		public String toString() {
-			return this.value + " ";
-		}
+    /**
+     * Herausfinden, ob ein gewisser Datensatz schon im binaeren Suchbaum enthalten ist.
+     *
+     * @param data zu suchender Datensatz
+     * @return true: Datensatz ist vorhanden; false: Datensatz ist nicht vorhanden.
+     */
+    public boolean contains(int data) {
+        TreeNode temp = root;
+        while (temp != null) {
+            if (temp.getValue() == data) {
+                return true;
+            }
+            if (temp.getValue() > data) {
+                temp = temp.getLeft();
+            } else {
+                temp = temp.getRight();
+            }
+        }
+        return false;
+    }
 
-		public int getValue() {
-		  return this.value;
-		}
+    /**
+     * Einen neuen Datensatz in den binaeren Suchbaum einfuegen.
+     *
+     * @param data einzufuegender Datensatz
+     * @return true: Datensatz wurde eingefuegt; false: Datensatz war schon vorhanden.
+     */
+    public boolean insert(int data) {
+        if (root == null) {
+            root = new TreeNode(data, root);
+            return true;
+        }
 
-		public TreeNode getLeft() {
-		  return this.left;
-		}
+        TreeNode temp = root;
+        while (temp.getValue() != data) {
+            if (temp.getValue() > data) {
+                temp.averageLeft += data;                                                               // hinzugefuegt
+                temp.subTreeSize++;                                                                     // hinzugefuegt
+                if (temp.getLeft() == null) {
+                    temp.setLeft(new TreeNode(data, temp));
+                    return true;
+                }
+                temp = temp.getLeft();
+            } else {
+                temp.averageRight += data;                                                              // hinzugefuegt
+                temp.subTreeSize++;                                                                     // hinzugefuegt
+                if (temp.getRight() == null) {
+                    temp.setRight(new TreeNode(data, temp));
+                    return true;
+                }
+                temp = temp.getRight();
+            }
+        }
+        return false;
+    }
 
-		public TreeNode getRight() {
-		  return this.right;
-		}
+    /**
+     * Die Knotenklasse als statische innere Klasse.
+     */
+    public static class TreeNode {
+        protected int value;                                                                            // bearbeitet
+        protected int averageRight;                                                                     // hinzugefuegt
+        protected int averageLeft;                                                                      // hinzugefuegt
+        protected int subTreeSize;                                                                      // hinzugefuegt
+        protected TreeNode parent;                                                                      // hinzugefuegt
+        private TreeNode left;
+        private TreeNode right;
 
-		public void setValue(int value) {
-		  this.value = value;
-		}
+        public TreeNode(int value, TreeNode parent) {
+            this.value = value;
+            this.averageRight = 0;                                                                      // hinzugefuegt
+            this.averageLeft = 0;                                                                       // hinzugefuegt
+            this.subTreeSize = 1;                                                                       // hinzugefuegt
+            this.parent = parent;                                                                       // hinzugefuegt
+        }
 
-		public void setLeft(TreeNode node) {
-		  this.left = node;
-		}
+        public String toString() {
+            return this.value + " ";
+        }
 
-		public void setRight(TreeNode node) {
-		  this.right= node;
-		}
-	}
+        public int getValue() {
+            return this.value;
+        }
 
-	/** Baumwurzel */
-	protected TreeNode root;
+        public void setValue(int value) {
+            this.value = value;
+        }
 
-	/**
-	 * Herausfinden, ob ein gewisser Datensatz schon im binaeren Suchbaum enthalten ist.
-	 *
-	 * @param   data  zu suchender Datensatz
-	 * @return        true: Datensatz ist vorhanden; false: Datensatz ist nicht vorhanden.
-	 */
-	public boolean contains(int data) {
-		TreeNode temp = root;
-		while(temp != null) {
-			if (temp.getValue() == data) {
-				return true;
-			}
-			if (temp.getValue() > data) {
-				temp = temp.getLeft();
-			} else {
-				temp = temp.getRight();
-			}
-		}
-		return false;
-	}
+        public double getAverage() {
+            return this.averageLeft + this.value + this.averageRight;
+        }        // hinzugefuegt
 
-	/**
-	 * Einen neuen Datensatz in den binaeren Suchbaum einfuegen.
-	 *
-	 * @param   data  einzufuegender Datensatz
-	 * @return        true: Datensatz wurde eingefuegt; false: Datensatz war schon vorhanden.
-	 */
-	public boolean insert(int data) {
-		if (root == null) {
-			root = new TreeNode(data);
-			return true;
-		}
-		
-		TreeNode temp = root;
-		while(temp.getValue() != data) {
-			if (temp.getValue() > data) {
-				if(temp.getLeft() == null) {
-					temp.setLeft(new TreeNode(data));
-					return true;
-				}
-				temp = temp.getLeft();
-			} else {
-				if (temp.getRight() == null) {
-					temp.setRight(new TreeNode(data));
-					return true;
-				}
-				temp = temp.getRight();
-			}
-		}
-		return false;
-	}
+        public int getSubTreeSize() {
+            return this.subTreeSize;
+        }                                       // hinzugefuegt
 
-	public static void main(String[] args) {
-		BinarySearchTree tree = new BinarySearchTree();
-		for (int i = 0; i < 20; i++) {
-			int x = (int) (Math.random() * 50);
-			System.out.println(x);
-			tree.insert(x);
-		}
-		for (int i = 0; i < 50; i++) {
-			System.out.println(i + ": " + tree.contains(i));
-		}
-	}
+        public TreeNode getLeft() {
+            return this.left;
+        }
+
+        public void setLeft(TreeNode node) {
+            this.left = node;
+            node.parent = this;
+        }
+
+        public TreeNode getRight() {
+            return this.right;
+        }
+
+        public void setRight(TreeNode node) {
+            this.right = node;
+            node.parent = this;
+        }
+    }
 }
 
