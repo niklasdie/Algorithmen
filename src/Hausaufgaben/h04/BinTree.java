@@ -1,3 +1,5 @@
+package Hausaufgaben.h04;
+
 /**
  * Diese Klasse bildet einen binaren Suchbaum der ints speichert.
  */
