@@ -21,8 +21,10 @@ public class BinTree {
      * @return bestimmten Wert in Form von einer TreeNode oder null
      */
     private TreeNode getNode(int x) {
+        if (this.root == null)
+            throw new ArithmeticException("BinTree ist leer!");
         TreeNode tmp = this.root;
-        tmp = this.getNodeRekusiv(x, tmp);
+        tmp = this.getNodeRekursiv(x, tmp);
         if (tmp.data == x) {
             return tmp;
         } else {
@@ -37,9 +39,7 @@ public class BinTree {
      * @param tmp TreeNode von dem die Suche gestartet wird
      * @return bestimmter Wert in Form einer TreeNode
      */
-    private TreeNode getNodeRekusiv(int x, TreeNode tmp) {
-        if (this.root == null)
-            throw new ArithmeticException("BinTree ist leer!");
+    private TreeNode getNodeRekursiv(int x, TreeNode tmp) {
         if (tmp.data == x) {
             return tmp;
         }
@@ -60,7 +60,7 @@ public class BinTree {
             }
             tmp = tmp.right;
         }
-        return this.getNodeRekusiv(x, tmp);
+        return this.getNodeRekursiv(x, tmp);
     }
 
     /**
@@ -71,7 +71,7 @@ public class BinTree {
      */
     private TreeNode getParentNode(int x) {
         TreeNode tmp = this.root;
-        tmp = this.getNodeRekusiv(x, tmp);
+        tmp = this.getNodeRekursiv(x, tmp);
         if (tmp.data == x) {
             if (tmp.parent == null)
                 return null;
@@ -92,7 +92,7 @@ public class BinTree {
             this.root = new TreeNode(x);
         } else {
             TreeNode tmp = this.root;
-            tmp = this.getNodeRekusiv(x, tmp);
+            tmp = this.getNodeRekursiv(x, tmp);
             if (tmp.data == x)
                 throw new ArithmeticException("Der Wert ist bereits in dem BinTree!");
             if (tmp.data > x) {
@@ -117,19 +117,25 @@ public class BinTree {
      *
      * @param x bestimmter Wert
      */
-    public void remove(int x) {
-        TreeNode tmp = this.root;
-        tmp = this.getNodeRekusiv(x, tmp);
-        if (tmp.data != x)
+    public void remove(int x) { // FALSCH!!
+        TreeNode tmp = this.getNode(x);
+        if (tmp == null)
             throw new ArithmeticException("Der Wert existiert nicht in dem BinTree!");
         TreeNode node = tmp;
-        tmp = this.goLeft(tmp);
-        if (tmp == node)
-            if (tmp.right != null)
-                tmp = tmp.right;
-        tmp.parent = node.parent;
-        tmp.left = node.left;
-        tmp.right = node.right;
+        if(node.left != null && node.right != null) {
+            node = node.left;
+            node.parent = tmp.parent;
+            tmp.right.parent = node;
+        } else {
+            if (node.left == null) {
+                node = node.right;
+                node.parent = tmp.parent;
+            }
+            if (node.right == null) {
+                node = node.left;
+                node.parent = tmp.parent;
+            }
+        }
     }
 
     /**
@@ -187,6 +193,8 @@ public class BinTree {
         }
         tree.remove(30);
         System.out.println("Knoten geloescht: 30");
+        tree.remove(30);
+        System.out.println(tree.getNode(30));
         System.out.println("Elternknoten von 50: " + tree.getParentNode(50).data);// 20
         tree.clear();
         tree.getNode(20);
