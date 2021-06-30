@@ -8,7 +8,7 @@ public class Damenproblem {
 
     // Test
     public static void main(String[] args) {
-        damenProblem(8);
+        damenProblem(10);
     }
 
     /**
