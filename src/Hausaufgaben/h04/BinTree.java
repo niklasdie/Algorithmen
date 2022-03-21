@@ -117,23 +117,37 @@ public class BinTree {
      *
      * @param x bestimmter Wert
      */
-    public void remove(int x) { // FALSCH!!
+    public void remove(int x) {
         TreeNode tmp = this.getNode(x);
         if (tmp == null)
             throw new ArithmeticException("Der Wert existiert nicht in dem BinTree!");
         TreeNode node = tmp;
-        if(node.left != null && node.right != null) {
+        if (node.left != null && node.right != null) {
             node = node.left;
             node.parent = tmp.parent;
             tmp.right.parent = node;
         } else {
-            if (node.left == null) {
-                node = node.right;
-                node.parent = tmp.parent;
-            }
-            if (node.right == null) {
-                node = node.left;
-                node.parent = tmp.parent;
+            if (node.left == null && node.right == null) {
+                if (node.parent.right == node) {
+                    node.parent.right = null;
+                } else if (node.parent.left == node) {
+                    node.parent.left = null;
+                }
+                node.parent = null;
+            } else if (node.left == null) {
+                node.right.parent = node.parent;
+                if (node.parent.right == node) {
+                    node.parent.right = node.right;
+                } else if (node.parent.left == node) {
+                    node.parent.left = node.right;
+                }
+            } else {
+                node.left.parent = node.parent;
+                if (node.parent.right == node) {
+                    node.parent.right = node.left;
+                } else if (node.parent.left == node) {
+                    node.parent.left = node.left;
+                }
             }
         }
     }
@@ -191,12 +205,21 @@ public class BinTree {
                 System.out.println("Knoten " + testcase + " gefunden: " + node.data);
             }
         }
+        System.out.println("Elternknoten von 50: " + tree.getParentNode(50).data);// 30
         tree.remove(30);
         System.out.println("Knoten geloescht: 30");
-        tree.remove(30);
+        try {
+            tree.remove(30);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println(tree.getNode(30));
         System.out.println("Elternknoten von 50: " + tree.getParentNode(50).data);// 20
         tree.clear();
-        tree.getNode(20);
+        try {
+            tree.getNode(20);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
